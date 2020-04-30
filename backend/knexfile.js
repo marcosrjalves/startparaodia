@@ -5,6 +5,7 @@ module.exports = {
     development: {
       client: 'mysql2',
       connection: {
+        preciseTimestamps: false,
         host: '127.0.0.1',
         database: 'startpodia',
         user:     'root',
@@ -23,8 +24,9 @@ module.exports = {
     test: {
       client: 'mysql2',
       connection: {
+        preciseTimestamps: false,
         host: '127.0.0.1',
-        database: 'omnistack_test',
+        database: 'startpodia',
         user:     'root',
         password: 'n43r1l'
       },

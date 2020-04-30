@@ -6,6 +6,7 @@ import comparePassword from '../utils/comparePassword';
 import passwordHasher from '../utils/passwordHasher';
 
 class UsuariosController {
+  //Lista todos os usuários. 
   async listAll(req, res) {
     try {
       const usuarios = await Usuarios.query()
@@ -21,22 +22,25 @@ class UsuariosController {
     }
   }
 
+
+
   async create(req, res) {
     try {
-      const schema = Yup.object().shape({
-        nome: Yup.string().required(),
-        dataNasc: Yup.date(),
-        email: Yup.string().email().required(),
-        password: Yup.string().required().min(6),
-      });
+      // const schema = Yup.object().shape({
+      //   nome: Yup.string().required(),
+      //   data_nasc: Yup.date(),
+      //   email: Yup.string().email().required(),
+      //   password: Yup.string().required().min(6),
+      //   autor: Yup.boolean().required(),
+      // });
 
-      if (!(await schema.isValid(req.body))) {
-        return res.status(400).json({ error: 'Validation Error' });
-      }
+      // if (!(await schema.isValid(req.body))) {
+      //   return res.status(400).json({ error: 'Validation Error' });
+      // }
 
-      const { nome, dataNasc, email, password, autor } = req.body;
+      const { nome, data_nasc, email, password, autor } = req.body;
 
-      const password_hash = passwordHasher(password);
+      const password_hash = await passwordHasher(password);
 
       const verif = await Usuarios.query().select().where('email', email);
 
@@ -48,12 +52,15 @@ class UsuariosController {
 
       const data = await Usuarios.query().insert({
         nome,
-        dataNasc,
+        data_nasc,
         email,
         autor,
+        password_hash,
       });
-
       return res.json(data);
+
+      
+
     } catch (err) {
       const message = 'Internal Server Error';
       console.log(err);

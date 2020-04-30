@@ -13,7 +13,7 @@ class UsuariosModel extends Model {
 
     static get relationMappings() {
         import Devocoes from './DevocoesModel';
-        // const UsuariosDevocoes = require('./UsuariosDevocoesModel');
+        import Autores from './AutoresModel';
         
         return {
             devocoes: {
@@ -29,6 +29,15 @@ class UsuariosModel extends Model {
                     to: 'devocoes.id'
                 }
             },
+
+            autor: {
+                relation: Model.HasOneRelation,
+                modelClass: Autores,
+                join: {
+                    from: 'usuarios.id',
+                    to: 'autores.usuario_id',
+                },
+            },
         };
     }
 
@@ -38,12 +47,12 @@ class UsuariosModel extends Model {
             properties: {
                 id: { type: 'uuid' },
                 nome: { type: 'string', minLength: 1, maxLength: 255 },
-                dataNasc: { type: 'date' },
+                data_nasc: { type: 'date' },
                 email: { type: 'email' },
-                password: { type: 'text' },
+                password_hash: { type: 'text' },
                 autor: { type: 'boolean' },
-                dtCriacao: { type: 'datetime' },
-                dtAlteracao: { type: 'datetime' },
+                created_at: { type: 'datetime' },
+                updated_at: { type: 'datetime' },
             }
         };
     }

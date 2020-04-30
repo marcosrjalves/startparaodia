@@ -6,9 +6,10 @@ objection.Model.knex(knex);
 
 class Model extends objection.Model {
   $beforeInsert() {
-    // this.id = uuid();
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
+    // var data = new Date();
+    // var dt = data.getFullYear() + "-" + (data.getUTCMonth()+1) + "-" + data.getDate() + " " + data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
+    this.created_at = new Date();
+    this.updated_at = new Date();
   }
 
   $beforeValidate(jsonSchema, json, opt) {
@@ -16,7 +17,9 @@ class Model extends objection.Model {
   }
 
   $beforeUpdate() {
-    this.updatedAt = new Date();
+    // var data = new Date();
+    // var dt = data.getFullYear() + "-" + (data.getUTCMonth()+1) + "-" + data.getDate() + " " + data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
+    this.updated_at = new Date();
   }
 
   //   $formatDatabaseJson(json) {

@@ -48,7 +48,7 @@ class SessionController {
         token: jwt.sign({ id }, authConfig.secret, {
           expiresIn: authConfig.expiresIn,
         }),
-      });
+      });     
     } catch (err) {
       const message = 'Internal Server Error';
       console.log(err);

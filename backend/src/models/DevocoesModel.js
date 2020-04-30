@@ -47,11 +47,11 @@ class DevocoesModel extends Model {
             required: ['titulo', 'dataTexto', 'texto', 'autor_id'],
             properties: {
                 id: { type: 'uuid' },
-                titulo: { type: 'string', minLength: 1, maxLength: 255 },
-                dataTexto: { type: 'date' },
+                titulo: { type: 'string', minLength: 1, maxLength: 100 },
+                data_texto: { type: 'date' },
                 texto: { type: 'text' },
-                createdAt: { type: 'datetime' },
-                updatedAt: { type: 'datetime' },
+                created_at: { type: 'datetime' },
+                updated_at: { type: 'datetime' },
             }
         };
     }

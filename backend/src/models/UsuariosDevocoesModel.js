@@ -16,10 +16,19 @@ class UsuariosDevocoesModel extends Model {
     return {
       devocoes: {
         relation: Model.BelongsToOneRelation,
-        modelClass: UsuariosDevocoes,
+        modelClass: Usuarios,
         join: {
           from: 'usuarios_devocoes.usuario_id',
           to: 'usuarios.id',
+        },
+      },
+
+      usuarios: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Devocoes,
+        join: {
+          from: 'usuarios_devocoes.devocao_id',
+          to: 'devocoes.id',
         },
       },
     };
@@ -31,13 +40,11 @@ class UsuariosDevocoesModel extends Model {
       required: ['nome', 'dataNasc', 'email', 'password', 'autor'],
       properties: {
         id: { type: 'uuid' },
-        nome: { type: 'string', minLength: 1, maxLength: 255 },
-        dataNasc: { type: 'date' },
-        email: { type: 'email' },
-        password: { type: 'text' },
-        autor: { type: 'boolean' },
-        dtCriacao: { type: 'datetime' },
-        dtAlteracao: { type: 'datetime' },
+        usuario_id: { type: 'integer' },
+        devocao_id: { type: 'integer' },
+        data_leitura: { type: 'datetime' },
+        created_at: { type: 'datetime' },
+        updated_at: { type: 'datetime' },
       },
     };
   }
