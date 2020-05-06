@@ -5,7 +5,7 @@ module.exports = {
     development: {
       client: 'mysql2',
       connection: {
-        preciseTimestamps: false,
+        // preciseTimestamps: false,
         host: '127.0.0.1',
         database: 'startpodia',
         user:     'root',

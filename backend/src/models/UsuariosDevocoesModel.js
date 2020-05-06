@@ -9,26 +9,30 @@ class UsuariosDevocoesModel extends Model {
     return 'id';
   }
 
+  $beforeInsert() {
+    this.data_leitura = new Date();
+  }
+
   static get relationMappings() {
-    // import Usuarios from './UsuariosModel';
-    // import Devocoes from './DevocoesModel';
+    import Usuarios from './UsuariosModel';
+    import Devocoes from './DevocoesModel';
 
     return {
       devocoes: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Usuarios,
+        modelClass: Devocoes,
         join: {
           from: 'usuarios_devocoes.usuario_id',
-          to: 'usuarios.id',
+          to: 'devocoes.id',
         },
       },
 
       usuarios: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Devocoes,
+        modelClass: Usuarios,
         join: {
           from: 'usuarios_devocoes.devocao_id',
-          to: 'devocoes.id',
+          to: 'usuarios.id',
         },
       },
     };
@@ -37,7 +41,7 @@ class UsuariosDevocoesModel extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['nome', 'dataNasc', 'email', 'password', 'autor'],
+      required: [ 'usuario_id', 'devocao_id' ],
       properties: {
         id: { type: 'uuid' },
         usuario_id: { type: 'integer' },
@@ -50,4 +54,4 @@ class UsuariosDevocoesModel extends Model {
   }
 }
 
-export default DevocoesModel;
+export default UsuariosDevocoesModel;

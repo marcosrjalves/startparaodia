@@ -1,5 +1,5 @@
 // const bcrypt = require('bcryptjs');
-import Yup from 'yup';
+import * as Yup from 'yup';
 import Usuarios from '../models/UsuariosModel';
 
 import comparePassword from '../utils/comparePassword';
@@ -26,17 +26,16 @@ class UsuariosController {
 
   async create(req, res) {
     try {
-      // const schema = Yup.object().shape({
-      //   nome: Yup.string().required(),
-      //   data_nasc: Yup.date(),
-      //   email: Yup.string().email().required(),
-      //   password: Yup.string().required().min(6),
-      //   autor: Yup.boolean().required(),
-      // });
+      const schema = Yup.object().shape({
+        nome: Yup.string().required(),
+        data_nasc: Yup.date(),
+        email: Yup.string().email().required(),
+        password: Yup.string().required().min(6),
+      });
 
-      // if (!(await schema.isValid(req.body))) {
-      //   return res.status(400).json({ error: 'Validation Error' });
-      // }
+      if (!(await schema.isValid(req.body))) {
+        return res.status(400).json({ error: 'Validation Error' });
+      }
 
       const { nome, data_nasc, email, password, autor } = req.body;
 
@@ -50,16 +49,16 @@ class UsuariosController {
         return res.json(message);
       }
 
-      const data = await Usuarios.query().insert({
+      let data = await Usuarios.query().insert({
         nome,
         data_nasc,
         email,
         autor,
         password_hash,
       });
-      return res.json(data);
 
-      
+      data.password_hash = null;
+      return res.json(data);
 
     } catch (err) {
       const message = 'Internal Server Error';

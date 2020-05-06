@@ -13,7 +13,6 @@ class UsuariosModel extends Model {
 
     static get relationMappings() {
         import Devocoes from './DevocoesModel';
-        import Autores from './AutoresModel';
         
         return {
             devocoes: {
@@ -29,15 +28,6 @@ class UsuariosModel extends Model {
                     to: 'devocoes.id'
                 }
             },
-
-            autor: {
-                relation: Model.HasOneRelation,
-                modelClass: Autores,
-                join: {
-                    from: 'usuarios.id',
-                    to: 'autores.usuario_id',
-                },
-            },
         };
     }
 
@@ -50,7 +40,6 @@ class UsuariosModel extends Model {
                 data_nasc: { type: 'date' },
                 email: { type: 'email' },
                 password_hash: { type: 'text' },
-                autor: { type: 'boolean' },
                 created_at: { type: 'datetime' },
                 updated_at: { type: 'datetime' },
             }

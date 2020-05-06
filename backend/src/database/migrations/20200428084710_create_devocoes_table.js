@@ -7,7 +7,7 @@ exports.up = function(knex) {
         table.text('texto').notNullable();
         table.integer('autor_id').notNullable().unsigned();
         table.foreign('autor_id').references('id').inTable('autores');
-        table.timestamps(true, true);
+        table.timestamps(false, true);
     })
 };
 

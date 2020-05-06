@@ -7,7 +7,7 @@ exports.up = function(knex) {
         table.integer('devocao_id').notNullable().unsigned();
         table.foreign('devocao_id').references('id').inTable('devocoes');
         table.datetime('data_leitura');
-        table.timestamps(true, true);
+        table.timestamps(false, true);
     })
 };
 

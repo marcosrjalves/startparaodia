@@ -9,6 +9,7 @@ import Autores from './controllers/AutoresController';
 import Usuarios from './controllers/UsuariosController';
 import Sessions from './controllers/SessionController';
 import File from './controllers/FileController';
+import Read from './controllers/ReadController';
 
 // Middlewares
 import AuthMiddleware from './middlewares/auth';
@@ -18,19 +19,24 @@ const upload = multer(multerConfig);
 
 // Rotas Não Autenticadas
 routes.post('/usuarios', Usuarios.create);
-routes.post('/autores', Autores.create);
 routes.post('/sessions', Sessions.create);
 routes.get('/autores', Autores.list);
 
-// Rotas Autenticadas
+// Autenticação
 routes.use(AuthMiddleware);
 
-routes.get('/devocao', Devocoes.listAll);
-routes.post('/devocao', Devocoes.create);
+// Rotas autenticadas
+routes.get('/devocao', Devocoes.show);
+routes.get('/search', Devocoes.search);
 routes.get('/profile', Devocoes.listLastSeven);
+
+routes.post('/autores', Autores.show );
 
 routes.get('/usuarios', Usuarios.listAll);
 routes.put('/usuarios', Usuarios.update);
+
+routes.post('/read', Read.read);
+routes.get('/read', Read.verify);
 
 routes.post('/files', upload.single('file'), File.store);
 

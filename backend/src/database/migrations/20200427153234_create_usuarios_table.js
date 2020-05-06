@@ -6,7 +6,6 @@ exports.up = function(knex, Promise) {
       table.datetime('data_nasc').nullable();
       table.string('email').notNullable().unique();
       table.string('password_hash').notNullable();
-      table.boolean('autor').notNullable().defaultTo('0');
       table.timestamps(false, true);
   })
 };
